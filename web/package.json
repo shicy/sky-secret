@@ -1,0 +1,19 @@
+{
+  "name": "sky-secret-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "secret"
+  ],
+  "author": "shicy85@163.com",
+  "license": "ISC",
+  "dependencies": {
+    "v-render": "^2.1.4",
+    "v-render-plugin-spa": "^1.0.0",
+    "v-render-ui": "^1.0.8"
+  }
+}
