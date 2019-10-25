@@ -4,5 +4,9 @@
  */
 
 module.exports = {
-	babel: true
+	babel: true,
+
+	router: {
+		adapter: "./framework/router"
+	}
 };
