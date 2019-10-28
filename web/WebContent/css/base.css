@@ -6,7 +6,30 @@ html {
 }
 
 body {
+	font-size: 12px;
+	font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",Arial,sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+body, div, p, form, ul, ol, dl, dt, dd, img, a, iframe, span, td {
 	padding: 0px;
 	margin: 0px;
-	font-size: 12px;
+	border: 0px;
+}
+
+body, div, header, section, footer, li, span, a {
+	position: relative;
+}
+
+body, div, span, a, ul, li, dl, dt, dd, td, form, input, img {
+    box-sizing: border-box;
+}
+
+input, textarea, button, a {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	outline: none;
+}
+
+li {
+	list-style-type: none;
 }

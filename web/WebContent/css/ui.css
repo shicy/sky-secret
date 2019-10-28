@@ -1,0 +1,9 @@
+
+.ui-btn-primary > .btn {
+	background-color: #539de2;
+}
+
+
+.ui-btn-primary > .btn:hover {
+	background-color: #3891e4;
+}
