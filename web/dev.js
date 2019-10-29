@@ -7,6 +7,7 @@ const Path = require("path");
 global.__basedir = Path.resolve(__dirname, "./");
 global.__vrender = "v-render";
 global.__vrender_ui = "v-render-ui";
+global.__vrender = Path.resolve(__dirname, "../../../web/v-render");
 
 
 const Application = require("./framework/Application");
@@ -17,5 +18,9 @@ Application.startup({
 
 	server: {
 		port: 9801
+	},
+	
+	dataServer: {
+		server: "127.0.0.1:12032"
 	}
 });

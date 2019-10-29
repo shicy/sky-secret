@@ -8,5 +8,9 @@ module.exports = {
 
 	router: {
 		adapter: "./framework/router"
+	},
+
+	dataServer: {
+		validCode: 200
 	}
 };
