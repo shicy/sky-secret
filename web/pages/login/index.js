@@ -71,7 +71,7 @@ const PageView = BasePage.extend(module, {
 	getValidateView: function () {
 		let target = $(".valid-view");
 		new UIInput(this).render(target);
-		$("img.code").appendTo(target).attr("title", "验证码");
+		$("img.code").appendTo(target).attr("alt", "验证码").attr("title", "点击刷新验证码");
 		return target;
 	}
 });
