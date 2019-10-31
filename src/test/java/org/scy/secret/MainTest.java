@@ -7,7 +7,7 @@ public class MainTest {
 
     public static void main(String[] args) {
         ValidInfo validInfo = new ValidInfo();
-        validInfo.setCode("jfej23Ff");
+        validInfo.setCodeId("jfej23Ff");
         validInfo.setImageUrl("交话费文化减肥u我就佛i额外");
 
         String json = JSON.toJSONString(validInfo);
