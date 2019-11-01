@@ -3,27 +3,76 @@
  * Created by shicy 2019-10-28
  */
 
-const loginView = $(".container.login");
-const registerView = $(".container.register");
+const view = $(".m-login");
+const loginView = view.children(".container.login");
+const registerView = view.children(".container.register");
 
 ///////////////////////////////////////////////////////////
+// 点击 登录 按钮
+loginView.on("tap", "[name=login]", function () {
+	doLogin();
+});
+
 // 点击 前往注册 按钮
 loginView.on("tap", "[name=toRegister]", function () {
 	loginView.hide();
 	registerView.show();
+	if (!registerView.attr("validcode"))
+		refreshValidCode(registerView);
+});
+
+// 点击 注册 按钮
+registerView.on("tap", "[name=register]", function () {
+	doRegister();
 });
 
 // 点击 登录 按钮
 registerView.on("tap", "[name=toLogin]", function () {
 	registerView.hide();
 	loginView.show();
+	if (!loginView.attr("validcode"))
+		refreshValidCode(loginView);
+});
+
+// 点击 验证码 更新验证码
+view.on("tap", ".valid-view img", function (e) {
+	let target = Utils.parentUntil(e.target, ".container");
+	refreshValidCode(target);
 });
 
 // ========================================================
+// 登录
+const doLogin = function () {
+	frame.tooltip("error", "jfeowjfoej");
+};
+
+// 注册
+const doRegister = function () {
+	let form = UIForm.find(registerView)[0];
+
+	form.off("action_before").on("action_before", (e, params) => {
+		let validCodeInput = UIInput.find(form.get("validate").container())[0];
+		params.validCode = Utils.trimToEmpty(validCodeInput.val());
+		params.validCodeId = registerView.attr("validcode");
+		if (!params.validCode) {
+			e.preventDefault();
+		}
+	});
+
+	form.submit((err, ret) => {
+		console.log("======>", err, ret);
+		if (err) {
+			let errmsg = Utils.isArray(err) ? err[0].message : err;
+			frame.tooltip("error", errmsg);
+		}
+	});
+};
+
 // 更新验证码
 const refreshValidCode = function (target) {
 	VR.fetch("login.validcode", (err, ret) => {
 		if (!err && ret) {
+			target.attr("validcode", ret.codeId || "");
 			target.find("img.code").attr("src", ret.imageUrl || "");
 		}
 	});
@@ -31,5 +80,5 @@ const refreshValidCode = function (target) {
 
 ///////////////////////////////////////////////////////////
 (function () {
-	refreshValidCode($(".container.login"));
+	refreshValidCode(loginView);
 })();

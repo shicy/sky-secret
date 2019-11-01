@@ -16,8 +16,9 @@ const UIInput = VRender.UIInput;
 const PageView = BasePage.extend(module, {
 	renderBody: function (body) {
 		PageView.super(this, body);
-		this.renderLoginView(body);
-		this.renderRegisterView(body);
+		let target = $(".m-login").appendTo(body);
+		this.renderLoginView(target);
+		this.renderRegisterView(target);
 	},
 
 	renderLoginView: function (target) {
@@ -26,7 +27,7 @@ const PageView = BasePage.extend(module, {
 
 		$(".title").appendTo(box).text("登录");
 
-		let form = new UIForm(this, {orientation: UIForm.VERTICAL});
+		let form = new UIForm(this, {action: "login", orientation: UIForm.VERTICAL});
 		// 
 		let loginInput = new UIInput(this);
 		form.add("loginName", "手机号码、邮箱或用户名").content(loginInput);
@@ -47,21 +48,22 @@ const PageView = BasePage.extend(module, {
 
 		$(".title").appendTo(box).text("注册");
 
-		let form = new UIForm(this, {orientation: UIForm.VERTICAL});
+		let form = new UIForm(this, {action: "register", orientation: UIForm.VERTICAL});
 		// 
 		let mobileInput = new UIInput(this, {type: "mobile"});
-		form.add("mobile", "手机号码").content(mobileInput);
+		form.add("mobile", "手机号码").content(mobileInput).required().emptyMsg("手机号码不能为空");
 		// 
 		let emailInput = new UIInput(this, {type: "email"});
-		form.add("email", "邮箱").content(emailInput);
+		form.add("email", "邮箱（可选）").content(emailInput);
 		// 
 		let nameInput = new UIInput(this, {});
-		form.add("name", "用户名").content(nameInput);
+		form.add("username", "用户名（可选）").content(nameInput);
 		// 
 		let pwdInput = new UIInput(this, {type: "password"});
-		form.add("password", "登录密码").content(pwdInput);
+		form.add("password", "登录密码（6位及以上的数字、字母或_）").content(pwdInput)
+			.required().emptyMsg("登录密码不能为空").validator(this.getPasswordValidator());
 		// 
-		form.add("validate", "验证码").content(this.getValidateView());
+		form.add("validate", "验证码").content(this.getValidateView()).validator(this.getCodeValidator());
 		form.render($(".form").appendTo(box));
 
 		new UIButton(this, {name: "register", label: "注册", type: "primary"}).render(box);
@@ -73,5 +75,24 @@ const PageView = BasePage.extend(module, {
 		new UIInput(this).render(target);
 		$("img.code").appendTo(target).attr("alt", "验证码").attr("title", "点击刷新验证码");
 		return target;
+	},
+
+	getPasswordValidator: function () {
+		return function (value, callback) {
+			if (value.length < 6)
+				callback("登录密码不能少于6位");
+			else if (value.replace(/([0-9]|[a-zA-Z]|\_)/g, ""))
+				callback("登录密码只能是数字、字母或下划线");
+			else
+				callback();
+		};
+	},
+
+	getCodeValidator: function () {
+		return function (value, callback) {
+			let input = UIInput.find(this.get("validate").container())[0];
+			let code = Utils.trimToEmpty(input.val());
+			callback(!code ? "请输入验证码" : null);
+		};
 	}
 });

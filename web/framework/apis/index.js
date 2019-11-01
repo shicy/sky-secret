@@ -9,9 +9,32 @@ const api = new VRender.api();
 
 ///////////////////////////////////////////////////////////
 // 获取登录验证码
-// @return {code, imageUrl}
+// 参数：无
+// 返回 {code, imageUrl}
 api("login.validcode", function (name, params, callback) {
 	this.fetch("/validcode", null, (err, ret) => {
 		callback(err, ret);
+	});
+});
+
+// 用户登录
+api("login$", function (name, params, callback) {
+	callback();
+});
+
+// 新用户注册（并登录）
+// 参数：{mobile[, email][, username], password, validCode, validCodeId}
+// 返回：用户信息
+api("register", function (name, params, callback) {
+	this.post("/user/register", params, (err, ret) => {
+		// console.log("---", err, ret);
+		if (err) {
+			callback(err);
+		}
+		else {
+			let user = ret || {};
+			this.session.setData("user", user);
+			callback(false, user);
+		}
 	});
 });
