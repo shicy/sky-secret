@@ -1,6 +1,7 @@
 package org.scy.secret.controller;
 
 import org.apache.commons.lang3.StringUtils;
+import org.scy.common.Const;
 import org.scy.common.utils.CommonUtilsEx;
 import org.scy.common.web.controller.BaseController;
 import org.scy.common.web.controller.HttpResult;
@@ -37,7 +38,14 @@ public class UserController extends BaseController {
         return HttpResult.error(1001, "获取验证码失败");
     }
 
+    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     public Object login(LoginForm loginForm) {
+        User user = new User();
+        user.setName("张三");
+        user.setMobile("18268881203");
+        user.setPassword("12345678");
+//        user.setUpdateTime(21234232L);
+        PrivilegeClientAdapter.testBean(user, "abcd", "0");
         return null;
     }
 
@@ -61,7 +69,7 @@ public class UserController extends BaseController {
 
         if (StringUtils.isBlank(registerForm.getMobile()))
             return HttpResult.error(1004, "手机号码不能为空");
-        if (CommonUtilsEx.checkMobile(registerForm.getMobile()))
+        if (!CommonUtilsEx.checkMobile(registerForm.getMobile()))
             return HttpResult.error(1004, "请输入正确的手机号码");
 
         User user = new User();
@@ -69,6 +77,7 @@ public class UserController extends BaseController {
         user.setMobile(registerForm.getMobile());
         user.setEmail(registerForm.getEmail());
         user.setPassword(registerForm.getPassword());
+        user.setAccept((short)(Const.LOGIN_TYPE_NAME | Const.LOGIN_TYPE_MOBILE | Const.LOGIN_TYPE_EMAIL));
 
         user = PrivilegeClientAdapter.addUser(user, 0, 0);
         if (user != null) {
