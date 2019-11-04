@@ -13,3 +13,16 @@ frame.tooltip = function (type, message, callback) {
 	if (Utils.isFunction(callback))
 		_tooltip.on("close", callback);
 };
+
+///////////////////////////////////////////////////////////
+VR.onAjaxError = function (errmsg, error) {
+	if (errmsg == "html load error")
+		return ;
+	try {
+		errmsg = JSON.parse(errmsg) || errmsg;
+		if (errmsg.hasOwnProperty("msg"))
+			errmsg = errmsg.msg;
+	}
+	catch (e) {}
+	frame.tooltip("error", errmsg);
+};
