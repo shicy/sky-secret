@@ -18,8 +18,13 @@ api("login.validcode", function (name, params, callback) {
 });
 
 // 用户登录
+// 参数：username, password
+// 返回：用户信息
 api("login$", function (name, params, callback) {
-	callback();
+	this.post("/user/login", params, (err, ret) => {
+		console.log("====", err, ret);
+		callback(err, ret);
+	});
 });
 
 // 新用户注册（并登录）
@@ -27,7 +32,7 @@ api("login$", function (name, params, callback) {
 // 返回：用户信息
 api("register", function (name, params, callback) {
 	this.post("/user/register", params, (err, ret) => {
-		// console.log("---", err, ret);
+		console.log("---", err, ret);
 		if (err) {
 			callback(err);
 		}

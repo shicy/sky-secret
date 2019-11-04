@@ -43,7 +43,10 @@ view.on("tap", ".valid-view img", function (e) {
 // ========================================================
 // 登录
 const doLogin = function () {
-	frame.tooltip("error", "jfeowjfoej");
+	// frame.tooltip("error", "jfeowjfoej");
+	VR.fetch("login", {}, (err, ret) => {
+		console.log("doLogin: ", err, ret);
+	});
 };
 
 // 注册
@@ -61,10 +64,10 @@ const doRegister = function () {
 
 	form.submit((err, ret) => {
 		console.log("======>", err, ret);
-		if (err) {
-			let errmsg = Utils.isArray(err) ? err[0].message : err;
-			frame.tooltip("error", errmsg);
-		}
+		// if (err) {
+		// 	let errmsg = Utils.isArray(err) ? err[0].message : err;
+		// 	frame.tooltip("error", errmsg);
+		// }
 	});
 };
 
