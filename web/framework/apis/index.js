@@ -18,27 +18,32 @@ api("login.validcode", function (name, params, callback) {
 });
 
 // 用户登录
-// 参数：username, password
+// 参数：username, password, validCode, validCodeId
 // 返回：用户信息
 api("login$", function (name, params, callback) {
-	this.post("/user/login", params, (err, ret) => {
-		console.log("====", err, ret);
-		callback(err, ret);
-	});
-});
-
-// 新用户注册（并登录）
-// 参数：{mobile[, email][, username], password, validCode, validCodeId}
-// 返回：用户信息
-api("register", function (name, params, callback) {
-	this.post("/user/register", params, (err, ret) => {
-		console.log("---", err, ret);
+	this.post("/user/login", params, (err, user) => {
+		console.log("====", err, user);
 		if (err) {
 			callback(err);
 		}
 		else {
-			let user = ret || {};
-			this.session.setData("user", user);
+			this.session.setData("user", user || "");
+			callback(false, user);
+		}
+	});
+});
+
+// 新用户注册（并登录）
+// 参数：mobile[, email][, username], password, validCode, validCodeId
+// 返回：用户信息
+api("register", function (name, params, callback) {
+	this.post("/user/register", params, (err, user) => {
+		console.log("---", err, user);
+		if (err) {
+			callback(err);
+		}
+		else {
+			this.session.setData("user", user || "");
 			callback(false, user);
 		}
 	});

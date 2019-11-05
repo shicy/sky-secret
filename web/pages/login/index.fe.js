@@ -43,9 +43,29 @@ view.on("tap", ".valid-view img", function (e) {
 // ========================================================
 // 登录
 const doLogin = function () {
-	// frame.tooltip("error", "jfeowjfoej");
-	VR.fetch("login", {}, (err, ret) => {
-		console.log("doLogin: ", err, ret);
+	let form = UIForm.find(loginView)[0];
+
+	form.off("action_before").on("action_before", (e, params) => {
+		Utils.trimObject(params);
+		if (!params.username) {
+			e.preventDefault();
+			return frame.tooltip("error", "请输入手机号码、邮箱或用户名");
+		}
+		if (!params.password) {
+			e.preventDefault();
+			return frame.tooltip("error", "请输入登录密码");
+		}
+		let validCodeInput = UIInput.find(form.get("validate").container())[0];
+		params.validCode = Utils.trimToEmpty(validCodeInput.val());
+		params.validCodeId = loginView.attr("validcode");
+		if (!params.validCode) {
+			e.preventDefault();
+			return frame.tooltip("error", "请输入验证码");
+		}
+	});
+
+	form.submit((err, ret) => {
+		console.log("=====", err, ret);
 	});
 };
 

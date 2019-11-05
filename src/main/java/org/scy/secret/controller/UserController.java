@@ -39,14 +39,19 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public Object login(LoginForm loginForm) {
-        User user = new User();
-        user.setName("张三");
-        user.setMobile("18268881203");
-        user.setPassword("12345678");
-//        user.setUpdateTime(21234232L);
-        PrivilegeClientAdapter.testBean(user, "abcd", "0");
-        return null;
+    public Object login(HttpServletRequest request, HttpServletResponse response, LoginForm loginForm) {
+        if (loginForm == null)
+            return HttpResult.error(1002, "没有用户信息");
+
+        String token = SessionManager.doLogin(loginForm);
+        if (token != null) {
+            User user = PrivilegeClientAdapter.getUser(SessionManager.getUserId());
+            if (user != null) {
+                SessionManager.setUser(token, user.toPlatUser(), response);
+                return HttpResult.ok(user);
+            }
+        }
+        return HttpResult.ok();
     }
 
     /**

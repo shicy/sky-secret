@@ -30,7 +30,7 @@ const PageView = BasePage.extend(module, {
 		let form = new UIForm(this, {action: "login", orientation: UIForm.VERTICAL});
 		// 
 		let loginInput = new UIInput(this);
-		form.add("loginName", "手机号码、邮箱或用户名").content(loginInput);
+		form.add("username", "手机号码、邮箱或用户名").content(loginInput);
 		// 
 		let pwdInput = new UIInput(this, {type: "password"});
 		form.add("password", "登录密码").content(pwdInput);
