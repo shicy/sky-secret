@@ -26,3 +26,15 @@ VR.onAjaxError = function (errmsg, error) {
 	catch (e) {}
 	frame.tooltip("error", errmsg);
 };
+
+///////////////////////////////////////////////////////////
+Utils.trimObject = function (obj) {
+	if (obj) {
+		for (let n in obj) {
+			let value = obj[n];
+			if (value && (typeof value == "string")) {
+				obj[n] = Utils.trimToEmpty(value);
+			}
+		}
+	}
+};
