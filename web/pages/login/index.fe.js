@@ -64,8 +64,23 @@ const doLogin = function () {
 		}
 	});
 
+	let loginBtn = UIButton.instance(loginView.find("[name=login]"));
+	loginBtn.setLabel("正在登录");
+	loginBtn.waiting();
+
 	form.submit((err, ret) => {
 		console.log("=====", err, ret);
+		if (err) {
+			loginBtn.waiting(false);
+			loginBtn.setLabel("登录");
+			if (Utils.isArray(err))
+				frame.tooltip("error", err[0].message);
+		}
+		else {
+			frame.setUser(ret);
+			console.log("登录成功");
+			location.href = "/";
+		}
 	});
 };
 

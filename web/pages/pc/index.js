@@ -7,10 +7,14 @@ const VRender = require(__vrender);
 const BasePage = require("../BasePage");
 
 
+const $ = VRender.$;
+const Utils = VRender.Utils;
+const UIButton = VRender.UIButton;
+
 const PageView = BasePage.extend(module, {
 	renderBody: function (body) {
 		PageView.super(this, body);
-		body.write("pc");
+		new UIButton(this, {name: "logout", label: "退出"}).render(body);
 	}
 });
 
