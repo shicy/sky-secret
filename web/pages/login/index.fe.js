@@ -69,7 +69,7 @@ const doLogin = function () {
 	loginBtn.waiting();
 
 	form.submit((err, ret) => {
-		console.log("=====", err, ret);
+		// console.log("=====", err, ret);
 		if (err) {
 			loginBtn.waiting(false);
 			loginBtn.setLabel("登录");
@@ -78,7 +78,6 @@ const doLogin = function () {
 		}
 		else {
 			frame.setUser(ret);
-			console.log("登录成功");
 			location.href = "/";
 		}
 	});
@@ -89,6 +88,7 @@ const doRegister = function () {
 	let form = UIForm.find(registerView)[0];
 
 	form.off("action_before").on("action_before", (e, params) => {
+		Utils.trimObject(params);
 		let validCodeInput = UIInput.find(form.get("validate").container())[0];
 		params.validCode = Utils.trimToEmpty(validCodeInput.val());
 		params.validCodeId = registerView.attr("validcode");
@@ -97,12 +97,22 @@ const doRegister = function () {
 		}
 	});
 
+	let registerBtn = UIButton.instance(registerView.find("[name=register]"));
+	registerBtn.setLabel("正在注册，请稍后...");
+	registerBtn.waiting();
+
 	form.submit((err, ret) => {
-		console.log("======>", err, ret);
-		// if (err) {
-		// 	let errmsg = Utils.isArray(err) ? err[0].message : err;
-		// 	frame.tooltip("error", errmsg);
-		// }
+		// console.log("======>", err, ret);
+		if (err) {
+			registerBtn.waiting(false);
+			registerBtn.setLabel("注册");
+			if (Utils.isArray(err))
+				frame.tooltip("error", err[0].message);
+		}
+		else {
+			frame.setUser(ret);
+			location.href = "/";
+		}
 	});
 };
 
