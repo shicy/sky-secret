@@ -4,8 +4,4 @@
  */
 
 ///////////////////////////////////////////////////////////
-$(".ui-btn").on("tap", function (e) {
-	VR.fetch("logout", (err, ret) => {
-		console.log("=====", err, ret);
-	});
-});
+

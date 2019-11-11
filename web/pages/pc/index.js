@@ -5,6 +5,7 @@
 
 const VRender = require(__vrender);
 const BasePage = require("../BasePage");
+const PageHeader = require("./frame/Header");
 
 
 const $ = VRender.$;
@@ -14,8 +15,14 @@ const UIButton = VRender.UIButton;
 const PageView = BasePage.extend(module, {
 	renderBody: function (body) {
 		PageView.super(this, body);
-		new UIButton(this, {name: "logout", label: "退出"}).render(body);
+
+		let mainBody = $(".main-body").appendTo(body);
+
+		let header = $(".main-head").appendTo(mainBody);
+		new PageHeader(this).render(header);
+
+		let mainContainer = $(".main-container").appendTo(body);
 	}
 });
 
-PageView.use(require("v-render-plugin-spa"));
+// PageView.use(require("v-render-plugin-spa"));
