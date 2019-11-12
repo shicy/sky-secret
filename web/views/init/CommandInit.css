@@ -1,0 +1,45 @@
+
+.view-command-init .content {
+	width: 520px;
+	padding-top: 40px;
+	margin: 0px auto;
+}
+
+.view-command-init .title {
+	margin-bottom: 30px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.view-command-init .desc {
+	margin-top: 20px;
+	color: #999;
+	font-size: 14px;
+	text-indent: 2em;
+	line-height: 20px;
+}
+
+.view-command-init .desc.c {
+	text-align: center;
+	text-indent: inherit;
+}
+
+.view-command-init .desc .high {
+	color: #f00;
+}
+
+.view-command-init .form {
+	width: 460px;
+	padding-top: 32px;
+	margin: 0px auto;
+	text-align: center;
+}
+
+.view-command-init .form .ui-input {
+	margin-bottom: 30px;
+}
+
+.view-command-init .form .ui-input textarea {
+	height: 160px;
+}
