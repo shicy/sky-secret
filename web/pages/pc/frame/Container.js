@@ -4,6 +4,7 @@
  */
 
 const VRender = require(__vrender);
+const MainView = require("../main/MainView");
 const CommandInit = require("../../../views/init/CommandInit");
 
 
@@ -14,10 +15,8 @@ const PageContainer = VRender.UIView.extend(module, {
 
 	renderView: function () {
 		PageContainer.super(this);
-		this.renderCommandInitView(this.$el);
-	},
 
-	renderCommandInitView: function (target) {
-		new CommandInit(this).render(target);
+		// new CommandInit(this).render(this.$el);
+		new MainView(this).render(this.$el);
 	}
 });
