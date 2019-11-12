@@ -1,0 +1,22 @@
+
+body {
+	height: 100%;
+}
+
+#main-body {
+	height: 100%;
+	padding-top: 60px;
+	background-color: #fafafa;
+}
+
+#main-head {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	z-index: 1;
+}
+
+#main-container {
+	height: 100%;
+}

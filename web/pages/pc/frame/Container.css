@@ -1,0 +1,10 @@
+
+.page-container {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+}
+
+.page-container > * {
+	flex: 1;
+}
