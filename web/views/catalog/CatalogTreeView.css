@@ -2,5 +2,149 @@
 .view-catalog-tree {
 	flex: none !important;
 	width: 180px;
+	padding-top: 50px;
 	border-right: 1px solid #f3f3f3;
+}
+
+.view-catalog-tree > .addview {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	z-index: 1;
+	padding: 15px 0px 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    user-select: none;
+    cursor: pointer;
+}
+
+.view-catalog-tree > .addview .addbtn {
+	display: inline-block;
+    vertical-align: top;
+    padding: 0px 0px 0px 25px;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.view-catalog-tree > .addview .addbtn:before {
+	content: "";
+	position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 0px;
+    top: 50%;
+    margin-top: -10px;
+    border-radius: 100px;
+    background-color: #539de2;
+    background-image: url(/img/a/003b.png);
+    background-repeat: no-repeat;
+    background-size: 10px;
+    background-position: center;
+}
+
+.view-catalog-tree > .addview:hover {
+	background-color: #f0f0f0;
+}
+
+.view-catalog-tree > .addview:hover .addbtn {
+	color: #539de2;
+	font-weight: bold;
+}
+
+.view-catalog-tree > .addview:active .addbtn:before {
+	transform: scale(0.9);
+}
+
+.view-catalog-tree > .treeview {
+	height: 100%;
+	padding: 20px 0px 50px;
+	overflow: auto;
+}
+
+.view-catalog-tree > .treeview .tree-node {
+	padding: 6px 0px 6px 80px;
+	color: #787878;
+    font-size: 12px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.view-catalog-tree > .treeview .tree-node .title {
+	padding-left: 20px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-image: url(/img/a/004.png);
+    background-repeat: no-repeat;
+    background-size: 14px;
+    background-position: 0px center;
+}
+
+.view-catalog-tree > .treeview .tree-node.active {
+	color: #333;
+	background-color: #ececec;
+}
+
+.view-catalog-tree > .treeview li > ul {
+	display: none;
+}
+
+.view-catalog-tree > .treeview li.loading {
+	padding-left: 40px;
+    color: #999;
+    line-height: 32px;
+    pointer-events: none;
+}
+
+.view-catalog-tree > .treeview li.open > ul {
+	display: block;
+}
+
+.view-catalog-tree > .treeview li.open > .tree-node .title {
+	background-image: url(/img/a/005.png);
+}
+
+.view-catalog-tree > .treeview ul[level='1'] > li.loading {
+	padding-left: 40px;
+}
+
+.view-catalog-tree > .treeview ul[level='2'] > li.loading {
+	padding-left: 60px;
+}
+
+.view-catalog-tree > .treeview ul[level='3'] > li.loading {
+	padding-left: 80px;
+}
+
+.view-catalog-tree > .treeview ul[level='4'] > li.loading {
+	padding-left: 100px;
+}
+
+.view-catalog-tree > .treeview ul[level='5'] > li.loading {
+	padding-left: 120px;
+}
+
+.view-catalog-tree > .treeview ul[level='0'] > li > .tree-node {
+	padding-left: 20px;
+}
+
+.view-catalog-tree > .treeview ul[level='1'] > li > .tree-node {
+	padding-left: 40px;
+}
+
+.view-catalog-tree > .treeview ul[level='2'] > li > .tree-node {
+	padding-left: 60px;
+}
+
+.view-catalog-tree > .treeview ul[level='3'] > li > .tree-node {
+	padding-left: 80px;
+}
+
+.view-catalog-tree > .treeview ul[level='4'] > li > .tree-node {
+	padding-left: 100px;
+}
+
+.view-catalog-tree > .treeview ul[level='5'] > li > .tree-node {
+	padding-left: 120px;
 }
