@@ -10,7 +10,6 @@ const view = $(".view-catalog-tree");
 view.on("tap", ".tree-node", function (e) {
 	let node = $(e.currentTarget);
 	let item = node.parent();
-	console.log(item);
 	if (item.is(".open")) {
 		if (node.is(".active"))
 			item.removeClass("open");
