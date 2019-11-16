@@ -7,7 +7,8 @@ const VRender = require(__vrender);
 
 
 const $ = VRender.$;
-const UIInput = VRender.UIInput;
+const UIList = VRender.UIList;
+const UIScroll = VRender.UIScroll;
 
 const SecretListView = VRender.UIView.extend(module, {
 	className: "view-secret-list",
@@ -22,7 +23,6 @@ const SecretListView = VRender.UIView.extend(module, {
 	renderSearchView: function (target) {
 		target = $(".searchview").appendTo(target);
 		target = $(".searchipt").appendTo(target);
-		// new UIInput(this, {prompt: "查询"}).render(target);
 		$("input").appendTo(target).attr("placeholder", "查询");
 		$(".searchbtn").appendTo(target);
 	},
@@ -33,6 +33,22 @@ const SecretListView = VRender.UIView.extend(module, {
 	},
 
 	renderListView: function (target) {
+		let listView = new UIList(this, {apiName: "secret.find"});
+		listView.setItemRenderer(this.getListItemRenderer());
+
 		target = $(".listview").appendTo(target);
+		new UIScroll(this, {content: listView}).render(target);
+	},
+
+	getListItemRenderer: function () {
+		return function ($, item, data) {
+			var item = $("<div class='secret-item'></div>");
+			$("<div class='title'></div>").appendTo(item)
+				.text(data.title || "无标题");
+			var updateTime = Utils.toDate(data.updateTime);
+			$("<div class='time'></div>").appendTo(item)
+				.text(Utils.toLocalDateString(updateTime));
+			return item;
+		};
 	}
 });
