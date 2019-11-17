@@ -31,7 +31,17 @@ const CommandInit = VRender.UIView.extend(module, {
 				"我们为此无能为力，我们也不为此承担任何责任。"));
 
 		let form = $(".form").appendTo(target);
-		new UIInput(this, {maxSize: 100, width: "100%"}).render(form);
-		new UIButton(this, {name: "submit", label: "确定", type: "primary", width: 80}).render(form);
+		new UIInput(this, {
+			maxSize: 100,
+			width: "100%",
+			prompt: "请输入口令，100字以内的有效字符"
+		}).render(form);
+
+		new UIButton(this, {
+			name: "submit",
+			label: "确定",
+			type: "primary",
+			width: 80
+		}).render(form);
 	}
 });

@@ -82,19 +82,32 @@ api("user.reload", function (name, params, callback) {
 	});
 });
 
+// 获取当前用户资料
+// 参数：无
+api("user.profile", function (name, params, callback) {
+	callback(false, null);
+});
+
+// 设置或修改用户口令
+// 参数：command
+api("user.command.set", function (name, params, callback) {
+	callback(false, null);
+});
+
 ///////////////////////////////////////////////////////////
 // 查询我的秘密
 // 参数：catalogId, title
 api("secret.find", function (name, params, callback) {
-	setTimeout(() => {
-		let id = Date.now();
-		let time = Date.now();
-		let datas = [];
-		datas.push({id: id++, title: "积分莴苣哦", updateTime: time});
-		datas.push({id: id++, title: "哦我凤减肥哦", updateTime: time});
-		datas.push({id: id++, title: "分完了妇委会金覅讹我房间诶我费劲儿哦", updateTime: time});
-		datas.push({id: id++, title: "回复", updateTime: time});
-		datas.push({id: id++, title: "房间诶我费劲儿哦", updateTime: time});
-		callback(false, {total: 83, data: datas});
-	}, 1000);
+	callback();
+	// setTimeout(() => {
+	// 	let id = Date.now();
+	// 	let time = Date.now();
+	// 	let datas = [];
+	// 	datas.push({id: id++, title: "积分莴苣哦", updateTime: time});
+	// 	datas.push({id: id++, title: "哦我凤减肥哦", updateTime: time});
+	// 	datas.push({id: id++, title: "分完了妇委会金覅讹我房间诶我费劲儿哦", updateTime: time});
+	// 	datas.push({id: id++, title: "回复", updateTime: time});
+	// 	datas.push({id: id++, title: "房间诶我费劲儿哦", updateTime: time});
+	// 	callback(false, {total: 83, data: datas});
+	// }, 1000);
 });

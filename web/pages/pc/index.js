@@ -16,11 +16,21 @@ const UIButton = VRender.UIButton;
 const PageView = BasePage.extend(module, {
 	doInit: function (done) {
 		PageView.super(this, () => {
-			this.pageHeader = new PageHeader(this);
-			this.pageContainer = new PageContainer(this);
-			VRender.View.allReady([this.pageHeader, this.pageContainer], () => {
-				done();
+			let callbacks = [this.loadUserProfile];
+			Utils.exec(this, callbacks, {}, (err, params) => {
+				this.pageHeader = new PageHeader(this, params);
+				this.pageContainer = new PageContainer(this, params);
+				VRender.View.allReady([this.pageHeader, this.pageContainer], () => {
+					done();
+				});
 			});
+		});
+	},
+
+	loadUserProfile: function (params, callback) {
+		this.doApi("user.profile", null, (err, ret) => {
+			this.userProfile = params.profile = !err ? ret : null;
+			callback(false, params);
 		});
 	},
 

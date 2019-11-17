@@ -16,7 +16,10 @@ const PageContainer = VRender.UIView.extend(module, {
 	renderView: function () {
 		PageContainer.super(this);
 
-		// new CommandInit(this).render(this.$el);
-		new MainView(this).render(this.$el);
+		let profile = this.options.profile || {};
+		if (profile.command)
+			new MainView(this).render(this.$el);
+		else
+			new CommandInit(this).render(this.$el);
 	}
 });
