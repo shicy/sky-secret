@@ -7,6 +7,8 @@ const frame = window.frame = function () {};
 
 ///////////////////////////////////////////////////////////
 frame.getUser = function () {
+	if (!frame.currentUser)
+		frame.currentUser = VR.cache("g_userinfo");
 	return frame.currentUser || {};
 };
 frame.setUser = function (user) {

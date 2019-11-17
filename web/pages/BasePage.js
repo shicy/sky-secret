@@ -28,5 +28,21 @@ const BasePage = VRender.PageView.extend(module, {
 		}
 
 		this.import(`file://${__basedir}/framework/frame.fe.js`, {group: "frame", index: 1});
+	},
+
+	_getContext: function () {
+		if (!this._context)
+			this._context = this.getContext();
+		return this._context;
+	},
+
+	_getSession: function () {
+		if (!this._session)
+			this._session = this.getSession();
+		return this._session;
+	},
+
+	doApi: function (apiName, apiParams, callback) {
+		this._getContext().doApi(this._getSession(), apiName, apiParams, callback);
 	}
 });
