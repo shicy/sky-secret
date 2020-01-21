@@ -36,10 +36,6 @@
 	text-align: center;
 }
 
-.view-command-init > .content > .form .ui-input {
-	margin-bottom: 30px;
-}
-
-.view-command-init .form .ui-input textarea {
-	height: 160px;
+.view-command-init > .content > .form > .btns {
+	margin-top: 30px;
 }
