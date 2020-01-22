@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -25,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @ResponseBody
+@SuppressWarnings("unused")
 public class UserController extends BaseController {
 
     /**
@@ -42,7 +42,7 @@ public class UserController extends BaseController {
      * 用户登录
      */
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public Object login(HttpServletRequest request, HttpServletResponse response, LoginForm loginForm) {
+    public Object login(HttpServletResponse response, LoginForm loginForm) {
         if (loginForm == null)
             return HttpResult.error(1002, "没有用户信息");
         loginForm.setExpires(24 * 60 * 60); // 1天
@@ -74,7 +74,7 @@ public class UserController extends BaseController {
      * @return 返回用户信息
      */
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    public Object register(HttpServletRequest request, HttpServletResponse response, RegisterForm registerForm) {
+    public Object register(HttpServletResponse response, RegisterForm registerForm) {
         if (registerForm == null)
             return HttpResult.error(1002, "没有用户信息");
 
