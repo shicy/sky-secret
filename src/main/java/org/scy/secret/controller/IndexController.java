@@ -8,19 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@ResponseBody
 @SuppressWarnings("unused")
 public class IndexController extends BaseController {
 
     @RequestMapping(value = "/version", method = RequestMethod.GET)
-    @ResponseBody
     public Object version() {
         return HttpResult.ok(getAppVersion());
-    }
-
-    @RequestMapping("/test/auth")
-    @ResponseBody
-    public Object authTest() {
-        return HttpResult.ok("ok");
     }
 
 }

@@ -6,6 +6,7 @@ import org.scy.common.web.model.BaseModel;
  * 加密项
  * Created by shicy on 2017/5/11.
  */
+@SuppressWarnings("unused")
 public class SecretModel extends BaseModel {
 
     private static final long serialVersionUID = 1002019102215150002L;
@@ -24,6 +25,8 @@ public class SecretModel extends BaseModel {
      * 所属目录编号
      */
     private int catalogId;
+
+    private int userId;
 
     public String getTitle() {
         return title;
@@ -48,4 +51,13 @@ public class SecretModel extends BaseModel {
     public void setCatalogId(int catalogId) {
         this.catalogId = catalogId;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
 }

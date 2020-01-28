@@ -4,6 +4,7 @@ package org.scy.secret.form;
  * 注册表单
  * Created by shicy 2019/10/31
  */
+@SuppressWarnings("unused")
 public class RegisterForm {
 
     private String username;
