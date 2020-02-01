@@ -4,6 +4,7 @@
  */
 
 const VRender = require(__vrender);
+const Application = require(__basedir + "/framework/Application");
 
 
 const $ = VRender.$;
@@ -23,8 +24,15 @@ const PageHeader = VRender.UIView.extend(module, {
 
 	renderUserInfo: function (target) {
 		let user = $(".userinfo").appendTo(target);
-		$(".name").appendTo(user).text("18268881203");
+		$(".name").appendTo(user).text(this.getUserName());
 
 		$(".exitbtn").appendTo(target).text("退出");
+	},
+
+	getUserName: function () {
+		let userInfo = Application.getUser(this.getSession());
+		if (userInfo.name)
+			return userInfo.name;
+		return userInfo.mobile;
 	}
 });

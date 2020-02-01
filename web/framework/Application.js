@@ -15,3 +15,7 @@ const Utils = VRender.Utils;
 Application.startup = function (config) {
 	new VRender(Utils.extend(true, {}, AppConfig, config));
 };
+
+Application.getUser = function (session) {
+	return session.getData("user");
+};

@@ -21,6 +21,7 @@ api("login.validcode", function (name, params, callback) {
 // 参数：username, password, validCode, validCodeId
 // 返回：用户信息
 api("login$", function (name, params, callback) {
+	this.headers.contentType = "json";
 	this.post("/user/login", params, (err, user) => {
 		if (err) {
 			callback(err);
@@ -49,6 +50,7 @@ api("logout", function (name, params, callback) {
 // 参数：mobile[, email][, username], password, validCode, validCodeId
 // 返回：用户信息
 api("register", function (name, params, callback) {
+	this.headers.contentType = "json";
 	this.post("/user/register", params, (err, user) => {
 		if (err) {
 			callback(err);
@@ -85,13 +87,19 @@ api("user.reload", function (name, params, callback) {
 // 获取当前用户资料
 // 参数：无
 api("user.profile", function (name, params, callback) {
-	callback(false, null);
+	this.get("/user/profile", null, (err, ret) => {
+		callback(err, ret);
+	});
+
 });
 
 // 设置或修改用户口令
 // 参数：command
 api("user.command.set", function (name, params, callback) {
-	callback(false, null);
+	this.post("/secret/set_command_cipher", params, (err, ret) => {
+		console.log("44444444444", err, ret);
+		callback(err, ret);
+	})
 });
 
 ///////////////////////////////////////////////////////////
