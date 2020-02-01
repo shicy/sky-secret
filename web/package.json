@@ -13,9 +13,9 @@
   "author": "shicy85@163.com",
   "license": "ISC",
   "dependencies": {
-    "v-render": "^2.1.5",
+    "v-render": "^2.1.6",
     "v-render-plugin-spa": "^1.0.1",
-    "v-render-ui": "^1.0.9"
+    "v-render-ui": "^1.1.2"
   },
   "devDependencies": {
     "node-dev": "^4.0.0"
