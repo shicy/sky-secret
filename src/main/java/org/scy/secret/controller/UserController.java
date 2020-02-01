@@ -10,8 +10,11 @@ import org.scy.common.web.session.LoginForm;
 import org.scy.common.web.session.SessionManager;
 import org.scy.priv.PrivilegeClientAdapter;
 import org.scy.priv.model.User;
+import org.scy.priv.model.UserProfile;
 import org.scy.secret.form.RegisterForm;
+import org.scy.secret.model.ProfileModel;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,7 +45,7 @@ public class UserController extends BaseController {
      * 用户登录
      */
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public Object login(HttpServletResponse response, LoginForm loginForm) {
+    public Object login(HttpServletResponse response, @RequestBody LoginForm loginForm) {
         if (loginForm == null)
             return HttpResult.error(1002, "没有用户信息");
         loginForm.setExpires(24 * 60 * 60); // 1天
@@ -74,7 +77,7 @@ public class UserController extends BaseController {
      * @return 返回用户信息
      */
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    public Object register(HttpServletResponse response, RegisterForm registerForm) {
+    public Object register(HttpServletResponse response, @RequestBody RegisterForm registerForm) {
         if (registerForm == null)
             return HttpResult.error(1002, "没有用户信息");
 
@@ -123,6 +126,17 @@ public class UserController extends BaseController {
     public Object getUserInfo() {
         User user = PrivilegeClientAdapter.getUser(SessionManager.getUserId());
         return HttpResult.ok(user);
+    }
+
+    /**
+     * 获取用户属性信息
+     */
+    @RequestMapping(value = "/user/profile", method = RequestMethod.GET)
+    public Object getUserProfile() {
+        UserProfile[] profiles = PrivilegeClientAdapter.getUserProfiles(SessionManager.getUserId());
+        ProfileModel profileModel = ProfileModel.make(profiles);
+        profileModel.setUserId(SessionManager.getUserId());
+        return HttpResult.ok(profileModel);
     }
 
 }

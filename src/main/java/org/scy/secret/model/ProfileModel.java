@@ -1,6 +1,7 @@
 package org.scy.secret.model;
 
 import org.scy.common.web.model.BaseModel;
+import org.scy.priv.model.UserProfile;
 
 /**
  * 个人信息
@@ -9,6 +10,17 @@ import org.scy.common.web.model.BaseModel;
 public class ProfileModel extends BaseModel {
 
     private static final long serialVersionUID = 1002019111721310001L;
+
+    public static ProfileModel make(UserProfile[] profiles) {
+        ProfileModel model = new ProfileModel();
+        if (profiles != null) {
+            for (UserProfile profile: profiles) {
+                if ("command".equals(profile.getName()))
+                    model.setCommand(profile.getValue());
+            }
+        }
+        return model;
+    }
 
     /**
      * 用户编号

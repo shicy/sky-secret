@@ -73,7 +73,7 @@ public class SecretController extends BaseController {
      * @return 返回目录编号
      */
     @RequestMapping(value = "/add_catalog", method = RequestMethod.POST)
-    public Object addCatalog(CatalogForm catalogForm) {
+    public Object addCatalog(@RequestBody CatalogForm catalogForm) {
         if (catalogForm == null)
             return HttpResult.error(Const.MSG_CODE_PARAMMISSING, "缺少参数");
         catalogForm.setId(0);
@@ -85,7 +85,7 @@ public class SecretController extends BaseController {
      * 修改目录
      */
     @RequestMapping(value = "/update_catalog", method = RequestMethod.POST)
-    public Object updateCatalog(CatalogForm catalogForm) {
+    public Object updateCatalog(@RequestBody CatalogForm catalogForm) {
         if (catalogForm == null)
             return HttpResult.error(Const.MSG_CODE_PARAMMISSING, "缺少参数");
         CatalogModel model = catalogService.save(catalogForm);
@@ -135,7 +135,7 @@ public class SecretController extends BaseController {
      * @return 返回编号
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public Object addSecret(SecretForm secretForm) {
+    public Object addSecret(@RequestBody SecretForm secretForm) {
         if (secretForm == null)
             return HttpResult.error(Const.MSG_CODE_PARAMMISSING, "缺少参数");
         secretForm.setId(0);
@@ -147,7 +147,7 @@ public class SecretController extends BaseController {
      * 修改保密信息
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public Object updateSecret(SecretForm secretForm) {
+    public Object updateSecret(@RequestBody SecretForm secretForm) {
         if (secretForm == null)
             return HttpResult.error(Const.MSG_CODE_PARAMMISSING, "缺少参数");
         SecretModel model = secretService.save(secretForm);
