@@ -11,7 +11,7 @@
 -- 目录表
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `catalog` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL COMMENT '目录名称',
   `type` TINYINT NOT NULL DEFAULT 0,
   `parentId` INT NOT NULL DEFAULT 0,
