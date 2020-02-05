@@ -17,12 +17,46 @@ frame.setUser = function (user) {
 };
 
 ///////////////////////////////////////////////////////////
+frame.encrypt = function (command, value) {
+	return CryptoJS.encrypt(command, value);
+};
+
+frame.decrypt = function (command, value) {
+	return CryptoJS.decrypt(command, value);
+};
+
+///////////////////////////////////////////////////////////
 frame.tooltip = function (type, message, callback) {
 	if (type == "error")
 		type = "danger";
 	let _tooltip = new UIMessage({type: type, content: message});
 	if (Utils.isFunction(callback))
 		_tooltip.on("close", callback);
+};
+
+frame.confirm = function (title, content, api, params, callback) {
+	if (Utils.isFunction(api)) {
+		callback = api;
+		api = params = null;
+	}
+	else if (Utils.isFunction(params)) {
+		callback = params;
+		params = null;
+	}
+	return new UIConfirm({title: title, focusHtmlContent: content}).onSubmit(function () {
+		if (Utils.isBlank(api)) {
+			if (Utils.isFunction(callback))
+				callback();
+		}
+		else {
+			let loading = frame.loading();
+			VR.fetch(api, params, function (err, ret) {
+				loading.remove();
+				if (Utils.isFunction(callback))
+					callback(err, ret);
+			});
+		}
+	});
 };
 
 frame.loading = function (target) {
@@ -62,6 +96,10 @@ frame.loading = function (target) {
 			}
 		}
 	};
+};
+
+frame.reload = function () {
+	location.reload(true);
 };
 
 ///////////////////////////////////////////////////////////
