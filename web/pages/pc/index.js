@@ -51,4 +51,4 @@ const PageView = BasePage.extend(module, {
 	}
 });
 
-// PageView.use(require("v-render-plugin-spa"));
+PageView.import("/js/crypto.min.js", {group: "crypto", minify: false});

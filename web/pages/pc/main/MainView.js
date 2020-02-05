@@ -30,6 +30,8 @@ const MainView = VRender.UIView.extend(module, {
 	renderView: function () {
 		MainView.super(this);
 
+		this.$el.attr("command-cipher", this.options.command || "");
+
 		this.catalogTree.render(this.$el);
 		this.listView.render(this.$el);
 		this.detailView.render(this.$el);
