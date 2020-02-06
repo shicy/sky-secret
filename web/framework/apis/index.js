@@ -86,20 +86,20 @@ api("user.reload", function (name, params, callback) {
 
 // 获取当前用户资料
 // 参数：无
+// 返回：{ userId, command }
 api("user.profile", function (name, params, callback) {
 	this.get("/user/profile", null, (err, ret) => {
+		if (!err && ret) {
+			ret = { userId: ret.userId, command: ret.command };
+		}
 		callback(err, ret);
 	});
-
 });
 
 // 设置或修改用户口令
 // 参数：command
 api("user.command.set", function (name, params, callback) {
-	this.post("/secret/set_command_cipher", params, (err, ret) => {
-		console.log("44444444444", err, ret);
-		callback(err, ret);
-	})
+	this.post("/secret/set_command_cipher", params, callback);
 });
 
 ///////////////////////////////////////////////////////////
@@ -118,4 +118,36 @@ api("secret.find", function (name, params, callback) {
 	// 	datas.push({id: id++, title: "房间诶我费劲儿哦", updateTime: time});
 	// 	callback(false, {total: 83, data: datas});
 	// }, 1000);
+});
+
+///////////////////////////////////////////////////////////
+// 获取全部目录信息
+// 参数：无
+// 返回：[]
+api("catalog.find.all", function (name, params, callback) {
+	this.get("/secret/catalogs_list", null, (err, ret) => {
+		callback(err, ret);
+	});
+});
+
+// 保存目录信息
+// 参数：{ id, name, parentId }
+// 返回：{ id }
+api("catalog.save", function (name, params, callback) {
+	this.headers.contentType = "json";
+	let api = !params.id ? "/secret/add_catalog" : "/secret/update_catalog";
+	this.post(api, params, (err, ret) => {
+		if (!err && ret) {
+			ret = {id: parseInt(ret)};
+		}
+		callback(err, ret);
+	});
+});
+
+// 删除目录信息
+// 参数：id
+api("catalog.delete", function (name, params, callback) {
+	let _params = {};
+	_params.id = parseInt(params.id) || 0;
+	this.post("/secret/delete_catalog", _params, callback);
 });
