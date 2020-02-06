@@ -126,7 +126,7 @@ public class SecretController extends BaseController {
 
         long time = HttpUtilsEx.getLongValue(request, "time", 0L);
 
-        List<SecretModel> secretModels = secretService.find(params, time);
+        List<SecretModel> secretModels = secretService.find(params, time, 10);
         return HttpResult.ok(secretModels);
     }
 

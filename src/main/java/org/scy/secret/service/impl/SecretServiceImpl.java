@@ -38,13 +38,18 @@ public class SecretServiceImpl implements SecretService {
     }
 
     @Override
-    public List<SecretModel> find(Map<String, Object> params, long lastTime) {
+    public List<SecretModel> find(Map<String, Object> params, long lastTime, int size) {
         Selector selector = new Selector();
-        selector.setPageInfo(new PageInfo(1, 10, 0));
+        selector.setPageInfo(new PageInfo(1, size, 0));
 
-        selector.addFilterNotBlank("title", params.get("title"));
-        selector.addFilter("userId", SessionManager.getUser());
-        selector.addFilter("updateTime", lastTime, Oper.LT);
+        selector.addFilterNotBlank("a.title", params.get("title"));
+        selector.addFilter("a.userId", SessionManager.getUser());
+        if (lastTime > 0)
+            selector.addFilter("a.updateTime", lastTime, Oper.LT);
+
+        Integer catalogId = (Integer)params.get("catalogId");
+        if (catalogId != null && catalogId > 0)
+            selector.addFilter("b.parentIds", "|" + catalogId + "|", Oper.LIKE);
 
         List<SecretModel> models = secretMapper.find(selector);
         for (SecretModel model: models) {

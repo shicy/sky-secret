@@ -22,9 +22,11 @@ public interface SecretService {
      * 获取秘密信息
      * @param params 参数
      *     -param title 标题模块匹配
+     *     -param catalogId 所属目录编号
      * @param lastTime 分页信息，查询该时间之前的10条记录
+     * @param size 分大小
      */
-    List<SecretModel> find(Map<String, Object> params, long lastTime);
+    List<SecretModel> find(Map<String, Object> params, long lastTime, int size);
 
     /**
      * 保存秘密信息
