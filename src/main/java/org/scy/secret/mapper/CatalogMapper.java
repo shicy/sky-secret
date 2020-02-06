@@ -15,9 +15,12 @@ public interface CatalogMapper {
 
     CatalogModel getById(@Param("id") int id);
     List<CatalogModel> findAll(@Param("userId") int userId);
+    List<CatalogModel> findChildrenAll(@Param("id") int id);
 
     void add(CatalogModel model);
     void update(CatalogModel model);
     void delete(CatalogModel model);
+
+    void updateParentIds(CatalogModel model);
 
 }

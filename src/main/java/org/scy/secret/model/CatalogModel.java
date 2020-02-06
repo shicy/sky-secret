@@ -26,6 +26,11 @@ public class CatalogModel extends BaseModel {
     private int parentId;
 
     /**
+     * 所有上级编号，逗号分隔
+     */
+    private String parentIds;
+
+    /**
      * 用户编号
      */
     private int userId;
@@ -52,6 +57,14 @@ public class CatalogModel extends BaseModel {
 
     public void setParentId(int parentId) {
         this.parentId = parentId;
+    }
+
+    public String getParentIds() {
+        return parentIds;
+    }
+
+    public void setParentIds(String parentIds) {
+        this.parentIds = parentIds;
     }
 
     public int getUserId() {
