@@ -33,6 +33,7 @@ view.on("tap", ".tree-node", function (e) {
 			node.addClass("active");
 		}
 	}
+	view.trigger("change", item.data("itemData"));
 });
 
 // 点击修改按钮
