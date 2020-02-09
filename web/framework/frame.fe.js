@@ -5,6 +5,11 @@
 
 const frame = window.frame = function () {};
 
+let cachedCommand = null;
+let lastCommandTime = 0;
+
+frame.commandCipher = null;
+
 ///////////////////////////////////////////////////////////
 frame.getUser = function () {
 	if (!frame.currentUser)
@@ -23,6 +28,19 @@ frame.encrypt = function (command, value) {
 
 frame.decrypt = function (command, value) {
 	return CryptoJS.decrypt(command, value);
+};
+
+frame.getCommand = function (force, callback) {
+	if (cachedCommand && ((Date.now() - lastCommandTime) < 5 * 60 * 1000) && !force) {
+		callback && callback(cachedCommand);
+	}
+	else {
+		$fcomp("commandInputDialog").open((command) => {
+			cachedCommand = command;
+			lastCommandTime = Date.now();
+			callback && callback(command);
+		});
+	}
 };
 
 ///////////////////////////////////////////////////////////

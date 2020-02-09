@@ -7,6 +7,7 @@ const VRender = require(__vrender);
 const CatalogTreeView = require("../../../views/catalog/CatalogTreeView");
 const SecretListView = require("../../../views/secret/list/SecretListView");
 const SecretDetailView = require("../../../views/secret/detail/SecretDetailView");
+const CommandInputDialog = require("../../../views/command/InputDialog");
 
 
 const $ = VRender.$;
@@ -16,9 +17,9 @@ const MainView = VRender.UIView.extend(module, {
 
 	doInit: function (done) {
 		MainView.super(this, () => {
-			this.catalogTree = new CatalogTreeView(this);
-			this.listView = new SecretListView(this);
-			this.detailView = new SecretDetailView(this);
+			this.catalogTree = new CatalogTreeView(this, {ref: "catalogTreeView"});
+			this.listView = new SecretListView(this, {ref: "secretListView"});
+			this.detailView = new SecretDetailView(this, {ref: "secretDetailView"});
 
 			let views = [this.catalogTree, this.listView, this.detailView];
 			VRender.View.allReady(views, () => {
@@ -35,5 +36,7 @@ const MainView = VRender.UIView.extend(module, {
 		this.catalogTree.render(this.$el);
 		this.listView.render(this.$el);
 		this.detailView.render(this.$el);
+
+		new CommandInputDialog(this).render(this.$el);
 	}
 });

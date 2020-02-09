@@ -9,3 +9,7 @@
 .view-main > * {
 	flex: 1;
 }
+
+.view-main > .command-input-dialog {
+	position: absolute;
+}
