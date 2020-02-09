@@ -103,27 +103,51 @@ api("user.command.set", function (name, params, callback) {
 });
 
 ///////////////////////////////////////////////////////////
+// 获取详情
+// 参数：id
+// 返回：{ id, title, content, catalogId, userId, createTime, updateTime }
+api("secret.byid", function (name, params, callback) {
+	let api = "/secret/detail/" + (parseInt(params.id) || 0);
+	this.get(api, null, (err, ret) => {
+		callback(err, ret);
+	});
+});
+
 // 查询我的秘密
-// 参数：catalogId, title
+// 参数：catalogId, title, time
+// 返回：[{ id, title, content, catalogId, userId, createTime, updateTime }]
 api("secret.find", function (name, params, callback) {
-	callback();
-	// setTimeout(() => {
-	// 	let id = Date.now();
-	// 	let time = Date.now();
-	// 	let datas = [];
-	// 	datas.push({id: id++, title: "积分莴苣哦", updateTime: time});
-	// 	datas.push({id: id++, title: "哦我凤减肥哦", updateTime: time});
-	// 	datas.push({id: id++, title: "分完了妇委会金覅讹我房间诶我费劲儿哦", updateTime: time});
-	// 	datas.push({id: id++, title: "回复", updateTime: time});
-	// 	datas.push({id: id++, title: "房间诶我费劲儿哦", updateTime: time});
-	// 	callback(false, {total: 83, data: datas});
-	// }, 1000);
+	this.get("/secret/find", params, (err, ret) => {
+		callback(err, ret);
+	});
+});
+
+// 保存秘密
+// 参数：{ id, title, content, catalogId }
+// 返回：{ id }
+api("secret.save", function (name, params, callback) {
+	this.headers.contentType = "json";
+	let api = !params.id ? "/secret/add" : "/secret/update";
+	this.post(api, params, (err, ret) => {
+		if (!err && ret) {
+			ret = {id: parseInt(ret)};
+		}
+		callback(err, ret);
+	});
+});
+
+// 删除秘密
+// 参数：{ id }
+api("secret.delete", function (name, params, callback) {
+	let _params = {};
+	_params.id = parseInt(params.id) || 0;
+	this.post("/secret/delete", _params, callback);
 });
 
 ///////////////////////////////////////////////////////////
 // 获取全部目录信息
 // 参数：无
-// 返回：[]
+// 返回：[{ id, name, parentId, parentIds }]
 api("catalog.find.all", function (name, params, callback) {
 	this.get("/secret/catalogs_list", null, (err, ret) => {
 		callback(err, ret);

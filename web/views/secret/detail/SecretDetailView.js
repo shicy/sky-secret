@@ -24,8 +24,11 @@ const SecretDetailView = VRender.UIView.extend(module, {
 		let contentView = $(".content").appendTo(this.$el);
 		$("textarea").appendTo(contentView).attr("placeholder", "请输入...");
 
-		new UIButton(this, {name: "savebtn", label: "保存", 
-			type: "primary", icon: "/img/a/007b.png"}).render(this.$el);
+		let btnbar = $(".btnbar").appendTo(this.$el);
+		new UIButton(this, {name: "save", label: "保存", 
+			type: "primary", icon: "/img/a/007b.png"}).render(btnbar);
+		new UIButton(this, {name: "delete", label: "删除",
+			type: "danger", icon: "/img/a/009b.png"}).render(btnbar);
 
 		$(".empty").appendTo(this.$el);
 	}

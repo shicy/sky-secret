@@ -43,13 +43,15 @@ public class SecretServiceImpl implements SecretService {
         selector.setPageInfo(new PageInfo(1, size, 0));
 
         selector.addFilterNotBlank("a.title", params.get("title"));
-        selector.addFilter("a.userId", SessionManager.getUser());
+        selector.addFilter("a.userId", SessionManager.getUserId());
         if (lastTime > 0)
             selector.addFilter("a.updateTime", lastTime, Oper.LT);
 
         Integer catalogId = (Integer)params.get("catalogId");
         if (catalogId != null && catalogId > 0)
             selector.addFilter("b.parentIds", "|" + catalogId + "|", Oper.LIKE);
+
+        selector.addOrder("a.updateTime", false);
 
         List<SecretModel> models = secretMapper.find(selector);
         for (SecretModel model: models) {
@@ -64,14 +66,12 @@ public class SecretServiceImpl implements SecretService {
             throw new ResultException(Const.MSG_CODE_PARAMMISSING, "参数不能为空");
 
         SecretModel userMode;
-        if (form.getId() >= 0) {
+        if (form.getId() > 0) {
             userMode = secretMapper.getById(form.getId());
             if (userMode == null)
                 throw new ResultException(Const.MSG_CODE_NOTEXIST, "秘密不存在");
             if (userMode.getUserId() != SessionManager.getUserId())
                 throw new ResultException(Const.MSG_CODE_NOPERMISSION, "没有权限");
-            userMode.setUpdatorId(SessionManager.getUserId());
-            userMode.setUpdateDate(new Date());
         }
         else {
             userMode = new SecretModel();
@@ -80,13 +80,16 @@ public class SecretServiceImpl implements SecretService {
             userMode.setCreateDate(new Date());
         }
 
+        userMode.setUpdatorId(SessionManager.getUserId());
+        userMode.setUpdateDate(new Date());
+
         userMode.setTitle(StringUtils.trimToNull(form.getTitle()));
         if (userMode.getTitle() == null)
             throw new ResultException(Const.MSG_CODE_PARAMMISSING, "标题不能为空");
         userMode.setContent(form.getContent());
         userMode.setCatalogId(form.getCatalogId());
 
-        if (userMode.getId() >= 0)
+        if (userMode.getId() > 0)
             secretMapper.update(userMode);
         else
             secretMapper.add(userMode);

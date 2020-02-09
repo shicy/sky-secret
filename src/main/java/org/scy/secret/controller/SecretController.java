@@ -116,6 +116,7 @@ public class SecretController extends BaseController {
      * 查找保密信息
      * 参数：
      * -param title 标题模糊匹配
+     * -param catalogId 所属目录编号
      * -param time 查询该时间之前的10条记录
      * @return 返回保密信息列表
      */
@@ -123,6 +124,7 @@ public class SecretController extends BaseController {
     public Object findSecrets(HttpServletRequest request) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("title", HttpUtilsEx.getStringValue(request, "title"));
+        params.put("catalogId", HttpUtilsEx.getIntValue(request, "catalogId"));
 
         long time = HttpUtilsEx.getLongValue(request, "time", 0L);
 
