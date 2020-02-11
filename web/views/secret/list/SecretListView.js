@@ -33,17 +33,17 @@ const SecretListView = VRender.UIView.extend(module, {
 	},
 
 	renderListView: function (target) {
-		let listView = new UIList(this, {
-			ref: "listView",
-			apiName: "secret.find",
-			autoLoad: false,
-			itemRenderer: this.getListItemRenderer()
-		});
+		// let listView = new UIList(this, {
+		// 	ref: "listView",
+		// 	apiName: "secret.find",
+		// 	autoLoad: false,
+		// 	itemRenderer: this.getListItemRenderer()
+		// });
 
 		target = $(".listview").appendTo(target);
 		new UIScroll(this, {
 			ref: "secretScroller",
-			content: listView
+			content: $(".secret-list")
 		}).render(target);
 	},
 

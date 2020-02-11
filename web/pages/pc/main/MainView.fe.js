@@ -9,7 +9,6 @@ const detailView = $ref("secretDetailView", view);
 /////////////////////////////////////////////////
 // 切换目录
 catalogView.on("change", function (e, data) {
-	// 将事件传递到秘密列表组件
 	listView.trigger("catalog-changed", data);
 });
 

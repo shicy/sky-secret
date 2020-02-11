@@ -7,7 +7,6 @@ const VRender = require(__vrender);
 const CatalogTreeView = require("../../../views/catalog/CatalogTreeView");
 const SecretListView = require("../../../views/secret/list/SecretListView");
 const SecretDetailView = require("../../../views/secret/detail/SecretDetailView");
-const CommandInputDialog = require("../../../views/command/InputDialog");
 
 
 const $ = VRender.$;
@@ -36,7 +35,5 @@ const MainView = VRender.UIView.extend(module, {
 		this.catalogTree.render(this.$el);
 		this.listView.render(this.$el);
 		this.detailView.render(this.$el);
-
-		new CommandInputDialog(this).render(this.$el);
 	}
 });

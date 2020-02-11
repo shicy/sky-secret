@@ -42,7 +42,7 @@ public class SecretServiceImpl implements SecretService {
         Selector selector = new Selector();
         selector.setPageInfo(new PageInfo(1, size, 0));
 
-        selector.addFilterNotBlank("a.title", params.get("title"));
+        selector.addFilterNotBlank("a.title", params.get("title"), Oper.LIKE);
         selector.addFilter("a.userId", SessionManager.getUserId());
         if (lastTime > 0)
             selector.addFilter("a.updateTime", lastTime, Oper.LT);
