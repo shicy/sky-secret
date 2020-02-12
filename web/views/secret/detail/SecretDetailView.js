@@ -61,5 +61,10 @@ const SecretDetailView = VRender.UIView.extend(module, {
 			type: "primary",
 			width: 90
 		}).render(btns);
+		new UIButton(this, {
+			name: "cancel",
+			label: "取消",
+			width: 90
+		}).render(btns);
 	}
 });

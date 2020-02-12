@@ -79,7 +79,8 @@ const getCommand = function (force, callback) {
 		callback(userCommand);
 	}
 	else {
-		showCommandInput(callback);
+		let closeable = userCommand && force;
+		showCommandInput(closeable, callback);
 	}
 };
 
@@ -90,12 +91,15 @@ const startCommandTimer = function () {
 	if (currentData) {
 		commandTimerId = setTimeout(() => {
 			commandTimerId = 0;
-			showCommandInput(() => {});
+			showCommandInput(false, () => {});
 		}, 30 * 1000);
+	}
+	else {
+		lastCommandTime = 0;
 	}
 };
 
-const showCommandInput = function (callback) {
+const showCommandInput = function (closeable, callback) {
 	if (view.is(".show-command"))
 		return ;
 	view.addClass("show-command");
@@ -105,22 +109,29 @@ const showCommandInput = function (callback) {
 		commandTimerId = 0;
 	}
 
-	let commandView = view.find(".command-input");
+	let commandView = view.find(".command-input").removeClass("closeable");
+	if (!!closeable)
+		commandView.addClass("closeable");
+
 	let commandInput = $ref("commandInput", commandView);
 	commandInput.val("");
+	commandInput.focus();
 
-	view.find(".ui-btn[name=ok]").off("tap").on("tap", () => {
-		let command = commandInput.val();
-		if (!command)
-			return frame.tooltip("error", "请输入口令");
+	view.find(".btns .ui-btn").off("tap").on("tap", (e) => {
+		if ($(e.currentTarget).attr("name") == "ok") {
+			let command = commandInput.val();
+			if (!command)
+				return frame.tooltip("error", "请输入口令");
 
-		let cipher = frame.encrypt(command, frame.getUser().code);
-		if (cipher != frame.commandCipher)
-			return frame.tooltip("error", "口令不正确");
+			let cipher = frame.encrypt(command, frame.getUser().code);
+			if (cipher != frame.commandCipher)
+				return frame.tooltip("error", "口令不正确");
 
-		userCommand = command;
-		lastCommandTime = Date.now();
-		callback && callback(userCommand);
+			userCommand = command;
+			lastCommandTime = Date.now();
+
+			callback && callback(userCommand);
+		}
 
 		view.removeClass("show-command");
 		startCommandTimer();
