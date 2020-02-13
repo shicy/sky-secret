@@ -3,6 +3,8 @@ package org.scy.secret.service.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.scy.common.Const;
 import org.scy.common.ds.PageInfo;
+import org.scy.common.ds.query.FilterGroup;
+import org.scy.common.ds.query.Logic;
 import org.scy.common.ds.query.Oper;
 import org.scy.common.ds.query.Selector;
 import org.scy.common.exception.ResultException;
@@ -48,8 +50,13 @@ public class SecretServiceImpl implements SecretService {
             selector.addFilter("a.updateTime", lastTime, Oper.LT);
 
         Integer catalogId = (Integer)params.get("catalogId");
-        if (catalogId != null && catalogId > 0)
-            selector.addFilter("b.parentIds", "|" + catalogId + "|", Oper.LIKE);
+        if (catalogId != null && catalogId > 0) {
+            FilterGroup filterGroup = new FilterGroup();
+            filterGroup.setLogic(Logic.OR);
+            filterGroup.add("a.catalogId", catalogId);
+            filterGroup.add("b.parentIds", "|" + catalogId + "|", Oper.LIKE);
+            selector.addFilter(filterGroup);
+        }
 
         selector.addOrder("a.updateTime", false);
 

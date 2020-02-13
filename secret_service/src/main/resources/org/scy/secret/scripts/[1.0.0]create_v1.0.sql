@@ -40,7 +40,3 @@ CREATE TABLE IF NOT EXISTS `secrets` (
   `updateTime` BIGINT NULL,
   PRIMARY KEY (`id`))
 COMMENT = '加密内容';
-
--- ========================================================
--- catalog 表添加 parentIds 列 <2020-02-05 21:00:00>
-ALTER TABLE `catalog` ADD COLUMN `parentIds` VARCHAR(400) NULL COMMENT '所有上级目录编号，逗号分隔' AFTER `parentId`;

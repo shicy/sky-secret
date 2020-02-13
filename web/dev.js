@@ -7,8 +7,8 @@ const Path = require("path");
 global.__basedir = Path.resolve(__dirname, "./");
 global.__vrender = "v-render";
 global.__vrender_ui = "v-render-ui";
-// global.__vrender = Path.resolve(__dirname, "../../../web/v-render");
-// global.__vrender_ui = Path.resolve(__dirname, "../../../web/v-render-ui");
+global.__vrender = Path.resolve(__dirname, "../../../web/v-render");
+global.__vrender_ui = Path.resolve(__dirname, "../../../web/v-render-ui");
 
 
 const Application = require("./framework/Application");
