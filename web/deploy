@@ -1,0 +1,43 @@
+#! /bin/bash
+
+# 初始化
+echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] 创建目录：$(pwd)/dist"
+rm -rf ./dist
+mkdir ./dist
+
+# 拷贝
+echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] 复制源码..."
+cp -r ./framework ./dist/framework
+cp -r ./pages ./dist/pages
+cp -r ./views ./dist/views
+cp -r ./WebContent ./dist/WebContent
+cp ./main.js ./dist/main.js
+cp ./package.json ./dist/package.json
+cp ./.npmrc ./dist/.npmrc
+
+# 打包
+release_file_name="release_$(date '+%y%m%d%H%M%S').zip"
+release_file_path="./build/${release_file_name}"
+echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] 打包：$(pwd)/build/${release_file_name}"
+zip -r -q ./build/${release_file_name} ./dist/.
+
+# 上传
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] 上传：/mnt/www/secret/release.zip"
+scp ${release_file_path} root@www.scyok.com:/mnt/www/secret/release.zip
+
+# 远程执行
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] 部署..."
+ssh root@www.scyok.com << remotessh
+cd /mnt/www/secret
+unzip -oq release.zip
+rm -f release.zip
+cp -r ./dist/. ./
+rm -rf ./dist
+npm install
+pm2 restart all
+exit
+remotessh
+
+# 清理
+rm -rf ./dist
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] 完成."
