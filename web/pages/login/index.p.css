@@ -137,3 +137,11 @@ body {
 	top: 0px;
 	right: 0px;
 }
+
+.m-login[vs=register] > .login {
+	display: none;
+}
+
+.m-login[vs=register] > .register {
+	display: block;
+}

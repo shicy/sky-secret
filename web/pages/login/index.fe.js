@@ -15,8 +15,9 @@ loginView.on("tap", "[name=login]", function () {
 
 // 点击 前往注册 按钮
 loginView.on("tap", "[name=toRegister]", function () {
-	loginView.hide();
-	registerView.show();
+	// loginView.hide();
+	// registerView.show();
+	view.attr("vs", "register");
 	if (!registerView.attr("validcode"))
 		refreshValidCode(registerView);
 });
@@ -28,8 +29,9 @@ registerView.on("tap", "[name=register]", function () {
 
 // 点击 登录 按钮
 registerView.on("tap", "[name=toLogin]", function () {
-	registerView.hide();
-	loginView.show();
+	// registerView.hide();
+	// loginView.show();
+	view.attr("vs", "login");
 	if (!loginView.attr("validcode"))
 		refreshValidCode(loginView);
 });

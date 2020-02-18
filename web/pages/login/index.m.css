@@ -1,0 +1,58 @@
+
+body {
+	height: 100%;
+}
+
+.m-login {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+
+.m-login > .container {
+	position: absolute;
+	width: 100%;
+	top: 0px;
+	padding: 0.2rem 0.3rem;
+	transition: left 0.2s;
+}
+
+.m-login > .container > .box > .title {
+	margin-bottom: 0.3rem;
+    font-size: 0.22rem;
+    text-align: center;
+    line-height: 0.5rem;
+}
+
+.m-login > .container > .box > .form {
+	margin-bottom: 0.4rem;
+}
+
+.m-login > .container .valid-view {
+	padding-right: 1.2rem;
+}
+
+.m-login > .container .valid-view .code {
+	position: absolute;
+    height: 0.44rem;
+    top: 0px;
+    right: 0px;
+    border: 0.01rem solid rgba(0, 0, 0, 0.1);
+}
+
+.m-login > .login {
+	left: 0px;
+}
+
+.m-login > .register {
+	left: 100%;
+}
+
+.m-login[vs=register] > .login {
+	left: -100%;
+}
+
+.m-login[vs=register] > .register {
+	left: 0px;
+}
+

@@ -17,6 +17,7 @@ const PageView = BasePage.extend(module, {
 	renderBody: function (body) {
 		PageView.super(this, body);
 		let target = $(".m-login").appendTo(body);
+		target.attr("vs", "login");
 		this.renderLoginView(target);
 		this.renderRegisterView(target);
 	},
