@@ -92,7 +92,7 @@ const startCommandTimer = function () {
 		commandTimerId = setTimeout(() => {
 			commandTimerId = 0;
 			showCommandInput(false, () => {});
-		}, 30 * 1000);
+		}, 2 * 60 * 1000);
 	}
 	else {
 		lastCommandTime = 0;
