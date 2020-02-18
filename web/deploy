@@ -19,7 +19,7 @@ cp ./.npmrc ./dist/.npmrc
 release_file_name="release_$(date '+%y%m%d%H%M%S').zip"
 release_file_path="./build/${release_file_name}"
 echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] 打包：$(pwd)/build/${release_file_name}"
-zip -r -q ./build/${release_file_name} ./dist/.
+zip -r -q ${release_file_path} ./dist/.
 
 # 上传
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] 上传：/mnt/www/secret/release.zip"
