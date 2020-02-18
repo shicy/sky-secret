@@ -1,1 +1,37 @@
 @charset "utf-8";
+
+html {
+	height: 100%;
+}
+
+body {
+	font-size: 0.16rem;
+	font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",Arial,sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+body, div, p, form, ul, ol, dl, dt, dd, img, a, iframe, span, td {
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+}
+
+body, div, header, section, footer, li, span, a {
+	position: relative;
+}
+
+body, div, span, a, ul, li, dl, dt, dd, td, form, input, img {
+    box-sizing: border-box;
+}
+
+li {
+	list-style-type: none;
+}
+
+a {
+	color: #017CEF;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
