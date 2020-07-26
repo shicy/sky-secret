@@ -1,0 +1,63 @@
+#! /bin/bash
+
+profile=$1
+version=$2
+
+if [ ! $1 ]; then
+	profile="prod"
+fi
+
+if [ ! $2 ]; then
+	version="1.0.1"
+fi
+
+# 转到根目录
+cd -P $(dirname "$0")
+cd ..
+echo -e "目录: "`pwd`
+
+# 更新代码
+echo -e "\n> 代码同步"
+cd ../jcoms
+echo -e pull src jcoms: `pwd`
+git pull
+echo -e done.
+
+cd ../cached
+echo -e pull src cached: `pwd`
+git pull
+echo -e done.
+
+cd ../privilege
+echo -e pull src privilege: `pwd`
+git pull
+echo -e done.
+
+cd ../sky-secret
+echo -e pull src sky-secret: `pwd`
+git pull
+echo -e done.
+
+# 构建
+echo -e "\n> 构建"
+mvn clean
+mvn install
+mvn package -P ${profile}
+echo -e done.
+
+# 部署
+echo -e "\n> 部署"
+docker stop secret
+docker rm secret
+docker rmi shicy/secret:${version}
+
+docker build -t shicy/secret:${version} .
+docker run -itd \
+    -p 12360:12360 \
+    -v /mnt/logs/secret:/mnt/app/logs \
+    --name secret \
+    --network mynet \
+    --ip 172.2.2.60 \
+    shicy/secret:${version}
+
+echo -e "\n> 完成！！"

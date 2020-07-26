@@ -11,8 +11,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>secret_service</artifactId>
+    <version>1.0.1</version>
 
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -46,7 +47,13 @@
     </dependencies>
 
     <build>
-        <finalName>secret</finalName>
+        <finalName>secret-${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

@@ -85,6 +85,14 @@
                 <package.type>war</package.type>
             </properties>
         </profile>
+
+        <profile>
+            <id>local</id>
+            <properties>
+                <env>local</env>
+                <package.type>jar</package.type>
+            </properties>
+        </profile>
     </profiles>
 
 </project>
