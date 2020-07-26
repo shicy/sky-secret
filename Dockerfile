@@ -4,7 +4,7 @@ FROM java:8
 WORKDIR /mnt/app
 
 # 复制打包好的项目执行文件
-COPY priv_service/target/secret-*.jar ./app.jar
+COPY secret_service/target/secret-*.jar ./app.jar
 
 # 默认挂载日志目录
 VOLUME /mnt/app/logs
