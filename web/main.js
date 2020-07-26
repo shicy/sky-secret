@@ -16,10 +16,10 @@ Application.startup({
 	// mode: "development",
 
 	server: {
-		port: 12301
+		port: 9001
 	},
 	
 	dataServer: {
-		server: "127.0.0.1:12032"
+		server: "127.0.0.1:12360"
 	}
 });

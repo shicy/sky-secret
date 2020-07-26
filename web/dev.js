@@ -18,11 +18,11 @@ Application.startup({
 	mode: "development",
 
 	server: {
-		port: 9801
+		port: 9001
 	},
 	
 	dataServer: {
-		// server: "127.0.0.1:12032",
-		server: "47.111.123.77:12032"
+		// server: "127.0.0.1:12360",
+		server: "47.111.123.77:12360"
 	}
 });

@@ -13,11 +13,11 @@
   "author": "shicy85@163.com",
   "license": "ISC",
   "dependencies": {
-    "v-render": "^2.1.7",
+    "v-render": "^2.2.4",
     "v-render-plugin-spa": "^1.0.1",
-    "v-render-ui": "^1.1.3"
+    "v-render-ui": "^1.2.6"
   },
   "devDependencies": {
-    "node-dev": "^4.0.0"
+    "node-dev": "^4.3.0"
   }
 }
