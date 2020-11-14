@@ -22,7 +22,7 @@ Application.startup({
 	},
 	
 	dataServer: {
-		// server: "127.0.0.1:12360",
-		server: "47.111.123.77:12360"
+		server: "127.0.0.1:12360"
+		// server: "47.111.123.77:12360"
 	}
 });
